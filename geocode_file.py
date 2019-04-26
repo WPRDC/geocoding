@@ -4,12 +4,7 @@ import ckanapi
 from pprint import pprint
 
 def query_resource(site,query,API_key=None):
-    # Use the datastore_search_sql API endpoint to query a CKAN resource.
-
-
-    # Note that this doesn't work for private datasets.
-    # The relevant CKAN GitHub issue has been closed.
-    # https://github.com/ckan/ckan/issues/1954
+    """Use the datastore_search_sql API endpoint to query a CKAN resource."""
     ckan = ckanapi.RemoteCKAN(site, apikey=API_key)
     response = ckan.action.datastore_search_sql(sql=query)
     # A typical response is a dictionary like this
@@ -40,7 +35,7 @@ def query_resource(site,query,API_key=None):
 def lookup_parcel(parcel_id):
     site = "https://data.wprdc.org"
     resource_id = '23267115-177e-4824-89d9-185c7866270d' #2018 data
-    resource_id = "4b68a6dd-b7ea-4385-b88e-e7d77ff0b294" #2016 data
+    #resource_id = "4b68a6dd-b7ea-4385-b88e-e7d77ff0b294" #2016 data
     query = 'SELECT x, y FROM "{}" WHERE "PIN" = \'{}\''.format(resource_id,parcel_id)
     results = query_resource(site,query)
     assert len(results) < 2
